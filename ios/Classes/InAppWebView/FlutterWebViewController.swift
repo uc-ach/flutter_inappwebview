@@ -160,6 +160,11 @@ public class FlutterWebViewController: NSObject, FlutterPlatformView {
             let mimeType = initialData["mimeType"]!
             let encoding = initialData["encoding"]!
             let baseUrl = initialData["baseUrl"]!
+            if (@available(iOS 9.0, *)) {
+                [_webView loadFileURL:baseURL allowingReadAccessToURL:baseURL];
+            } else {
+            // Fallback on earlier versions
+            }
             webView?.loadData(data: data, mimeType: mimeType, encoding: encoding, baseUrl: baseUrl)
         }
         else if let initialUrlRequest = initialUrlRequest {
